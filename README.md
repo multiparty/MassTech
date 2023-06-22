@@ -2,7 +2,11 @@
 
 ```mermaid
 erDiagram
+    COLLECTION ||--|| STATE : has
+    COLLECTION ||--|| PRIME : has
+    COLLECTION ||--|| PROJECT : is
     COLLECTION }|--|| PARTICIPANT : has
+    COLLECTION ||--|{ SHARES : contains
     COLLECTION {
         string _id
         string title
@@ -18,7 +22,6 @@ erDiagram
         timestamp lastOpenedAt
     }
     
-
     PARTICIPANT ||--|{ SHARES : has
     PARTICIPANT {
         string _id
