@@ -2,9 +2,6 @@
 
 ```mermaid
 erDiagram
-    COLLECTION ||--|| STATE : has
-    COLLECTION ||--|| PRIME : has
-    COLLECTION ||--|| PROJECT : is
     COLLECTION }|--|| PARTICIPANT : has
     COLLECTION ||--|{ SHARES : contains
     COLLECTION {
@@ -37,6 +34,7 @@ erDiagram
         string collectionId
         string name
         timestamp createdAt
+        share[] shares
         json metadata
     }
     
@@ -82,6 +80,7 @@ erDiagram
 | collectionId | string | Identifier to link with Collection for these shares |
 | name | string | Unique name for the set of shares e.g., hispanic_female_executive |
 | createdAt | timestamp | - |
+| shares | list | List of shares |
 | metadata | json | BWWC Example: ({ gender: "female", position: "executive" }) |
 
 **Table: SHARE (not a db table)**
