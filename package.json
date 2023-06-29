@@ -1,0 +1,22 @@
+{
+  "name": "masstech",
+  "version": "1.0.0",
+  "description": "```mermaid erDiagram     COLLECTION }|--|| PARTICIPANT : has     COLLECTION ||--|{ SHARES : contains     COLLECTION {         string _id         string title         string description         string state         string prime         string publicKey         int threshold         string projectId         timestamp createdAt         string createdBy         timestamp lastClosedAt         timestamp lastOpenedAt     }",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "./packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/multiparty/MassTech.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/multiparty/MassTech/issues"
+  },
+  "homepage": "https://github.com/multiparty/MassTech#readme"
+}
