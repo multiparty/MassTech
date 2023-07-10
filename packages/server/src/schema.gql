@@ -1,0 +1,20 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Participant {
+  _id: ID!
+  collectionId: String!
+}
+
+type Query {
+  participants: [Participant!]!
+}
+
+type Mutation {
+  createParticipant(input: CreateParticipantDto!): Participant!
+}
+
+input CreateParticipantDto {
+  collectionId: String!
+}
