@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
 import { Participant } from './participant.model';
 import { ParticipantService } from './participant.service';
-import mongoose from 'mongoose';
 
 @Injectable()
 export class ParticipantPipe implements PipeTransform<string, Promise<Participant>> {

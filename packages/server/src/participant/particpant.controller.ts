@@ -1,11 +1,10 @@
 import { Resolver, Query, ResolveReference } from '@nestjs/graphql';
 import { Participant } from './Participant.model';
 import {
-  CreateParticipantDto,
   ParticipantService,
 } from './Participant.service';
-import mongoose from 'mongoose';
 import { BadRequestException, Controller, Get, Post } from '@nestjs/common';
+import { CreateParticipantDto } from 'src/dto/participant.dto';
 
 @Controller('participant')
 @Resolver(() => Participant)
@@ -22,7 +21,6 @@ export class ParticipantController {
   async createParticipant(
     participantDto: CreateParticipantDto,
   ): Promise<Participant> {
-    console.log('called createParticipant HAHAHAH');
     return this.participantService.create(participantDto);
   }
 

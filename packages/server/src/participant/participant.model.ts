@@ -1,7 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
-import { isNullableType } from 'graphql';
 
 @Schema()
 @ObjectType()

@@ -1,14 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { Field, InputType } from '@nestjs/graphql';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
+import { CreateParticipantDto } from 'src/dto/participant.dto';
+import { ParticipantsArgs } from 'src/dto/participants.input';
 import { Participant } from './participant.model';
 
-@InputType()
-export class CreateParticipantDto {
-  @Field()
-  collectionId: string;
-}
 
 @Injectable()
 export class ParticipantService {
@@ -28,8 +24,16 @@ export class ParticipantService {
     return createdParticipant;
   }
 
-  findAll(): Promise<Participant[]> {
-    return this.participantModel.find({ deletedAt: null }).exec();
+  async getCount(): Promise<number> {
+    const count = await this.participantModel.countDocuments()
+    return count
+  }
+
+  findAll(args: ParticipantsArgs = { skip: 0, take: 5 }): Promise<Participant[]> {
+    return this.participantModel.find({ deletedAt: null }, null, {
+        limit: args.take,
+        skip: args.skip,
+      }).exec();
   }
 
   find(id: string): Promise<Participant | null> {

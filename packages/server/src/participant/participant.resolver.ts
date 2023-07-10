@@ -6,11 +6,10 @@ import {
   Args,
 } from '@nestjs/graphql';
 import { Participant } from './Participant.model';
-import {
-  CreateParticipantDto,
-  ParticipantService,
-} from './Participant.service';
+import { ParticipantService } from './Participant.service';
 import { BadRequestException, Controller } from '@nestjs/common';
+import { ParticipantsArgs } from 'src/dto/participants.input';
+import { CreateParticipantDto } from 'src/dto/participant.dto';
 
 @Controller('participant')
 @Resolver(() => Participant)
@@ -18,8 +17,8 @@ export class ParticipantResolver {
   constructor(private readonly participantService: ParticipantService) {}
 
   @Query(() => [Participant])
-  async participants(): Promise<Participant[]> {
-    return this.participantService.findAll();
+  async participants(@Args() args: ParticipantsArgs): Promise<Participant[]> {
+    return this.participantService.findAll(args);
   }
 
   @Query(() => Participant)
