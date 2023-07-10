@@ -16,7 +16,6 @@ exports.ParticipantResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const Participant_model_1 = require("./Participant.model");
 const Participant_service_1 = require("./Participant.service");
-const mongoose_1 = require("mongoose");
 const common_1 = require("@nestjs/common");
 let ParticipantResolver = class ParticipantResolver {
     constructor(participantService) {
@@ -25,12 +24,18 @@ let ParticipantResolver = class ParticipantResolver {
     async participants() {
         return this.participantService.findAll();
     }
+    async participant(id) {
+        return this.participantService.find(id);
+    }
     async createParticipant(participantDto) {
         return this.participantService.create(participantDto);
     }
+    async deleteParticipant(id) {
+        return this.participantService.delete(id);
+    }
     async resolveReference(reference) {
         try {
-            const result = await this.participantService.find(new mongoose_1.default.Types.ObjectId(reference._id));
+            const result = await this.participantService.find(reference._id);
             if (result) {
                 return result;
             }
@@ -46,12 +51,26 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ParticipantResolver.prototype, "participants", null);
 __decorate([
+    (0, graphql_1.Query)(() => Participant_model_1.Participant),
+    __param(0, (0, graphql_1.Args)('participantId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ParticipantResolver.prototype, "participant", null);
+__decorate([
     (0, graphql_1.Mutation)(() => Participant_model_1.Participant),
     __param(0, (0, graphql_1.Args)('input')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Participant_service_1.CreateParticipantDto]),
     __metadata("design:returntype", Promise)
 ], ParticipantResolver.prototype, "createParticipant", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => Boolean),
+    __param(0, (0, graphql_1.Args)('participantId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ParticipantResolver.prototype, "deleteParticipant", null);
 __decorate([
     (0, graphql_1.ResolveReference)(),
     __metadata("design:type", Function),

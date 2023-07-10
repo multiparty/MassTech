@@ -5,13 +5,13 @@ import mongoose from 'mongoose';
 
 @Injectable()
 export class ParticipantPipe implements PipeTransform<string, Promise<Participant>> {
-  constructor(private readonly orgService: ParticipantService) {}
+  constructor(private readonly participantService: ParticipantService) {}
 
   async transform(value: string): Promise<Participant> {
     try {
-      const org = await this.orgService.find(new mongoose.Types.ObjectId(value));
-      if (org) {
-        return org;
+      const participant = await this.participantService.find(value);
+      if (participant) {
+        return participant;
       }
     } catch (_e) {}
 

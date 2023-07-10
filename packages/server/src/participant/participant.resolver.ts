@@ -10,8 +10,7 @@ import {
   CreateParticipantDto,
   ParticipantService,
 } from './Participant.service';
-import mongoose from 'mongoose';
-import { BadRequestException, Controller, Get, Post } from '@nestjs/common';
+import { BadRequestException, Controller } from '@nestjs/common';
 
 @Controller('participant')
 @Resolver(() => Participant)
@@ -23,6 +22,14 @@ export class ParticipantResolver {
     return this.participantService.findAll();
   }
 
+  @Query(() => Participant)
+  async participant(
+    @Args('participantId')
+    id: string,
+  ): Promise<Participant> {
+    return this.participantService.find(id);
+  }
+
   @Mutation(() => Participant)
   async createParticipant(
     @Args('input')
@@ -31,15 +38,21 @@ export class ParticipantResolver {
     return this.participantService.create(participantDto);
   }
 
+  @Mutation(() => Boolean)
+  async deleteParticipant(
+    @Args('participantId')
+    id: string,
+  ): Promise<boolean> {
+    return this.participantService.delete(id);
+  }
+
   @ResolveReference()
   async resolveReference(reference: {
     __typename: string;
     _id: string;
   }): Promise<Participant> {
     try {
-      const result = await this.participantService.find(
-        new mongoose.Types.ObjectId(reference._id),
-      );
+      const result = await this.participantService.find(reference._id);
       if (result) {
         return result;
       }

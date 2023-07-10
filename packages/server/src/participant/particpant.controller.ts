@@ -33,7 +33,7 @@ export class ParticipantController {
   }): Promise<Participant> {
     try {
       const result = await this.participantService.find(
-        new mongoose.Types.ObjectId(reference._id),
+        reference._id,
       );
       if (result) {
         return result;

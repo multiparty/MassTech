@@ -13,7 +13,6 @@ exports.ParticipantController = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const Participant_model_1 = require("./Participant.model");
 const Participant_service_1 = require("./Participant.service");
-const mongoose_1 = require("mongoose");
 const common_1 = require("@nestjs/common");
 let ParticipantController = class ParticipantController {
     constructor(participantService) {
@@ -28,7 +27,7 @@ let ParticipantController = class ParticipantController {
     }
     async resolveReference(reference) {
         try {
-            const result = await this.participantService.find(new mongoose_1.default.Types.ObjectId(reference._id));
+            const result = await this.participantService.find(reference._id);
             if (result) {
                 return result;
             }

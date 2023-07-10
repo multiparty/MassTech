@@ -19,21 +19,31 @@ export class ParticipantService {
   async create(
     createParticipantDto: CreateParticipantDto,
   ): Promise<Participant> {
-    const createdParticipant = await this.participantModel.create(
-      createParticipantDto,
-    );
+    const createdParticipant = await this.participantModel.create({
+      ...createParticipantDto,
+      createdAt: new Date(),
+      deletedAt: null,
+      metadata: {},
+    });
     return createdParticipant;
   }
 
   findAll(): Promise<Participant[]> {
-    return this.participantModel.find().exec();
+    return this.participantModel.find({ deletedAt: null }).exec();
   }
 
-  find(id: mongoose.Types.ObjectId): Promise<Participant | null> {
-    return this.participantModel.findById(id).exec();
+  find(id: string): Promise<Participant | null> {
+    return this.participantModel
+      .findById(new mongoose.Types.ObjectId(id))
+      .exec();
   }
 
-  findByBucket(bucket: string): Promise<Participant | null> {
-    return this.participantModel.findOne({ bucket }).exec();
+  async delete(id: string) {
+    const participantToDelete = await this.participantModel
+      .findOneAndUpdate(new mongoose.Types.ObjectId(id), {
+        deletedAt: new Date(),
+      })
+      .exec();
+    return !!participantToDelete;
   }
 }

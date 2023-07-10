@@ -12,16 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ParticipantPipe = void 0;
 const common_1 = require("@nestjs/common");
 const participant_service_1 = require("./participant.service");
-const mongoose_1 = require("mongoose");
 let ParticipantPipe = class ParticipantPipe {
-    constructor(orgService) {
-        this.orgService = orgService;
+    constructor(participantService) {
+        this.participantService = participantService;
     }
     async transform(value) {
         try {
-            const org = await this.orgService.find(new mongoose_1.default.Types.ObjectId(value));
-            if (org) {
-                return org;
+            const participant = await this.participantService.find(value);
+            if (participant) {
+                return participant;
             }
         }
         catch (_e) { }

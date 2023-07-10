@@ -33,17 +33,18 @@ let ParticipantService = class ParticipantService {
         this.participantModel = participantModel;
     }
     async create(createParticipantDto) {
-        const createdParticipant = await this.participantModel.create(createParticipantDto);
+        const createdParticipant = await this.participantModel.create(Object.assign(Object.assign({}, createParticipantDto), { createdAt: new Date(), deletedAt: null, metadata: {} }));
         return createdParticipant;
     }
     findAll() {
-        return this.participantModel.find().exec();
+        return this.participantModel.find({ deletedAt: null }).exec();
     }
     find(id) {
-        return this.participantModel.findById(id).exec();
+        return this.participantModel.findById(new mongoose_2.default.Types.ObjectId(id)).exec();
     }
-    findByBucket(bucket) {
-        return this.participantModel.findOne({ bucket }).exec();
+    async delete(id) {
+        const participantToDelete = await this.participantModel.findOneAndUpdate(new mongoose_2.default.Types.ObjectId(id), { deletedAt: new Date() }).exec();
+        return !!participantToDelete;
     }
 };
 ParticipantService = __decorate([

@@ -21,9 +21,23 @@ __decorate([
 ], Participant.prototype, "_id", void 0);
 __decorate([
     (0, mongoose_1.Prop)(),
+    __metadata("design:type", mongoose_2.default.Types.Map)
+], Participant.prototype, "metadata", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
     (0, graphql_1.Field)(),
     __metadata("design:type", String)
 ], Participant.prototype, "collectionId", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    (0, graphql_1.Field)(),
+    __metadata("design:type", Date)
+], Participant.prototype, "createdAt", void 0);
+__decorate([
+    (0, mongoose_1.Prop)(),
+    (0, graphql_1.Field)({ nullable: true }),
+    __metadata("design:type", Date)
+], Participant.prototype, "deletedAt", void 0);
 Participant = __decorate([
     (0, mongoose_1.Schema)(),
     (0, graphql_1.ObjectType)(),
@@ -31,4 +45,4 @@ Participant = __decorate([
 ], Participant);
 exports.Participant = Participant;
 exports.ParticipantSchema = mongoose_1.SchemaFactory.createForClass(Participant);
-//# sourceMappingURL=participant.model.js.map
+//# sourceMappingURL=Participant.model.js.map
