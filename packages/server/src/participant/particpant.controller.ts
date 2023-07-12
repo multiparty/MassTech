@@ -1,13 +1,10 @@
-import { Resolver, Query, ResolveReference } from '@nestjs/graphql';
+import { Query, ResolveReference } from '@nestjs/graphql';
 import { Participant } from './Participant.model';
-import {
-  ParticipantService,
-} from './Participant.service';
+import { ParticipantService } from './Participant.service';
 import { BadRequestException, Controller, Get, Post } from '@nestjs/common';
-import { CreateParticipantDto } from 'src/dto/participant.dto';
+import { CreateParticipantDto } from '../dto/participant.dto';
 
 @Controller('participant')
-@Resolver(() => Participant)
 export class ParticipantController {
   constructor(private readonly participantService: ParticipantService) {}
 
@@ -30,9 +27,7 @@ export class ParticipantController {
     _id: string;
   }): Promise<Participant> {
     try {
-      const result = await this.participantService.find(
-        reference._id,
-      );
+      const result = await this.participantService.find(reference._id);
       if (result) {
         return result;
       }

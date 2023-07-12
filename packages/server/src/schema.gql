@@ -16,7 +16,7 @@ scalar DateTime
 
 type Query {
   participants(skip: Int! = 0, take: Int! = 25): [Participant!]!
-  participant(participantId: String!): Participant!
+  participant(participantId: String!): Participant
 }
 
 type Mutation {
