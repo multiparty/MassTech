@@ -23,6 +23,10 @@ export class ParticipantService {
     return createdParticipant;
   }
 
+  async getCount() {
+    return this.participantModel.count();
+  }
+
   findAll(
     args: ParticipantsArgs = { skip: 0, take: 5 },
   ): Promise<Participant[]> {

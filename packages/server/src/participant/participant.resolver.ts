@@ -28,6 +28,12 @@ export class ParticipantResolver {
     return this.participantService.find(id);
   }
 
+  @Query(() => Number)
+  async getNumOfParticipants(): Promise<Number> {
+    console.log(' getCount called');
+    return this.participantService.getCount();
+  }
+
   @Mutation(() => Participant)
   async createParticipant(
     @Args('input')
