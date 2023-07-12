@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, ResolveReference } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, ResolveReference, Args } from '@nestjs/graphql';
 import {Collection} from './collection.model';
 import { CollectionService } from './collection.service';
 import mongoose from 'mongoose';
@@ -8,18 +8,18 @@ import { BadRequestException } from '@nestjs/common';
 export class CollectionResolver {
     constructor(private readonly collectionService: CollectionService) {}
 
-    @Mutation(()=> Collection)
-    async createCollection(title:string){
-        return this.collectionService.create(title);
+    @Mutation(() => Collection)
+    async createCollection(@Args('title') title: string): Promise<Collection> {
+      return this.collectionService.create(title);
+    }
+    
+    @Query(() => [Collection])
+    async getAllCollections(): Promise<Collection[]> {
+      return this.collectionService.findAll();
     }
 
-    @Query(()=>[Collection])
-    async getAllCollections():Promise<Collection[]>{
-        return this.collectionService.findAll();
-    }
-
-    @ResolveReference()
-    async getCollectionById(id:string):Promise<Collection>{
+    @Query(() => Collection)
+    async getCollectionById(@Args('id') id: string):Promise<Collection>{
         try {
             const result = await this.collectionService.find(new mongoose.Types.ObjectId(id))
             if(result){

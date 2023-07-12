@@ -33,12 +33,13 @@ type Query {
   participants(skip: Int! = 0, take: Int! = 25): [Participant!]!
   participant(participantId: String!): Participant!
   getAllCollections: [Collection!]!
+  getCollectionById(id: String!): Collection!
 }
 
 type Mutation {
   createParticipant(input: CreateParticipantDto!): Participant!
   deleteParticipant(participantId: String!): Boolean!
-  createCollection: Collection!
+  createCollection(title: String!): Collection!
 }
 
 input CreateParticipantDto {
