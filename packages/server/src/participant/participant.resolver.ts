@@ -7,11 +7,10 @@ import {
 } from '@nestjs/graphql';
 import { Participant } from './Participant.model';
 import { ParticipantService } from './Participant.service';
-import { BadRequestException, Controller } from '@nestjs/common';
-import { ParticipantsArgs } from 'src/dto/participants.input';
-import { CreateParticipantDto } from 'src/dto/participant.dto';
+import { BadRequestException } from '@nestjs/common';
+import { ParticipantsArgs } from '../dto/participants.input';
+import { CreateParticipantDto } from '../dto/participant.dto';
 
-@Controller('participant')
 @Resolver(() => Participant)
 export class ParticipantResolver {
   constructor(private readonly participantService: ParticipantService) {}
@@ -21,12 +20,18 @@ export class ParticipantResolver {
     return this.participantService.findAll(args);
   }
 
-  @Query(() => Participant)
+  @Query(() => Participant, { nullable: true })
   async participant(
     @Args('participantId')
     id: string,
-  ): Promise<Participant> {
+  ): Promise<Participant | null> {
     return this.participantService.find(id);
+  }
+
+  @Query(() => Number)
+  async getNumOfParticipants(): Promise<Number> {
+    console.log(' getCount called');
+    return this.participantService.getCount();
   }
 
   @Mutation(() => Participant)
@@ -51,10 +56,7 @@ export class ParticipantResolver {
     _id: string;
   }): Promise<Participant> {
     try {
-      const result = await this.participantService.find(reference._id);
-      if (result) {
-        return result;
-      }
+      return this.participantService.find(reference._id);
     } catch (e: any) {}
 
     throw new BadRequestException(

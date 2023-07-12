@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { CreateParticipantDto } from 'src/dto/participant.dto';
-import { ParticipantsArgs } from 'src/dto/participants.input';
+import { CreateParticipantDto } from '../dto/participant.dto';
+import { ParticipantsArgs } from '../dto/participants.input';
 import { Participant } from './participant.model';
-
 
 @Injectable()
 export class ParticipantService {
@@ -24,21 +23,26 @@ export class ParticipantService {
     return createdParticipant;
   }
 
-  async getCount(): Promise<number> {
-    const count = await this.participantModel.countDocuments()
-    return count
+  async getCount() {
+    return this.participantModel.count();
   }
 
-  findAll(args: ParticipantsArgs = { skip: 0, take: 5 }): Promise<Participant[]> {
-    return this.participantModel.find({ deletedAt: null }, null, {
+  findAll(
+    args: ParticipantsArgs = { skip: 0, take: 5 },
+  ): Promise<Participant[]> {
+    return this.participantModel
+      .find({ deletedAt: null }, null, {
         limit: args.take,
         skip: args.skip,
-      }).exec();
+      })
+      .exec();
   }
 
   find(id: string): Promise<Participant | null> {
     return this.participantModel
       .findById(new mongoose.Types.ObjectId(id))
+      .where('deletedAt')
+      .equals(null)
       .exec();
   }
 
