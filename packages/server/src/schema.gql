@@ -27,6 +27,7 @@ type Collection {
   createdBy: String!
   lastClosedAt: DateTime!
   lastOpenedAt: DateTime!
+  deletedAt: DateTime
 }
 
 type Query {
@@ -40,6 +41,7 @@ type Mutation {
   createParticipant(input: CreateParticipantDto!): Participant!
   deleteParticipant(participantId: String!): Boolean!
   createCollection(title: String!): Collection!
+  deleteCollection(id: String!): Boolean!
 }
 
 input CreateParticipantDto {

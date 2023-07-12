@@ -16,7 +16,16 @@ export class CollectionService {
         return this.collectionModel.find().exec()
     }
 
-    async find(id: mongoose.Types.ObjectId): Promise<Collection|null>{
-        return this.collectionModel.findById(id).exec()
+    async find(id: string): Promise<Collection|null>{
+        return this.collectionModel.findById(new mongoose.Types.ObjectId(id)).exec()
     }
+
+    async delete(id: string) {
+        const collectionToDelete = await this.collectionModel
+          .deleteOne(new mongoose.Types.ObjectId(id), {
+            deletedAt: new Date(),
+          })
+          .exec();
+        return !!collectionToDelete;
+      }
 }

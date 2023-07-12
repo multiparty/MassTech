@@ -53,6 +53,10 @@ export class Collection {
   @Field(() => Date)
   lastOpenedAt: Date;
 
+  @Prop()
+  @Field({ nullable: true })
+  deletedAt: Date
+
   constructor(title: string) {
     this.title = title;
   }
