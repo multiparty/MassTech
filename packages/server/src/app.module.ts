@@ -7,7 +7,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ParticipantModule } from './participant/participant.module';
 import { join } from 'path';
 
-const DATABASE_ULR = 'mongodb://localhost:27017/testDB';
+//TODO make configurable via .env file
+const DATABASE_ULR = 'mongodb://mongodb-server:27017/maindb';
 
 @Module({
   imports: [
