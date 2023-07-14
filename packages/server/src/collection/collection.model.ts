@@ -56,10 +56,6 @@ export class Collection {
   @Prop()
   @Field({ nullable: true })
   deletedAt: Date
-
-  constructor(title: string) {
-    this.title = title;
-  }
 }
 
 export type CollectionDocument = Collection & Document;
