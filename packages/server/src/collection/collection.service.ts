@@ -13,7 +13,7 @@ export class CollectionService {
     }
 
     async findAll(): Promise<Collection[]>{
-        return this.collectionModel.find().exec()
+        return this.collectionModel.find({ deletedAt: null }).exec()
     }
 
     async find(id: string): Promise<Collection|null>{
@@ -22,10 +22,10 @@ export class CollectionService {
 
     async delete(id: string) {
         const collectionToDelete = await this.collectionModel
-          .deleteOne(new mongoose.Types.ObjectId(id), {
-            deletedAt: new Date(),
-          })
-          .exec();
+        .findOneAndUpdate(new mongoose.Types.ObjectId(id), {
+          deletedAt: new Date(),
+        })
+        .exec();
         return !!collectionToDelete;
       }
 }

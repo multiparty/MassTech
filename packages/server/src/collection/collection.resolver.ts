@@ -13,7 +13,7 @@ export class CollectionResolver {
     }
 
     @Query(() => Collection)
-    async getCollectionById(@Args('id') id: string):Promise<Collection>{
+    async getCollectionById(@Args('id') id: string):Promise<Collection | null>{
       const result = await this.collectionService.find(id)
       if(!result){
         throw new BadRequestException(`Collection not found with id: ${id}`);
