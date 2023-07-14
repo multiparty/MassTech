@@ -2,13 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { Collection, CollectionDocument } from './collection.model'
+import { CollectionType } from './collection.type'
 
 @Injectable()
 export class CollectionService {
     constructor(@InjectModel(Collection.name) private collectionModel: Model<CollectionDocument>) {}
     
-    async create(title:string):Promise<Collection>{
-        const createdCollection = new this.collectionModel({title});
+    async create(input:CollectionType):Promise<Collection>{
+        const createdCollection = new this.collectionModel(input);
         return createdCollection.save();
     }
 

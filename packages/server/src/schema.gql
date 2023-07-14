@@ -16,7 +16,6 @@ scalar DateTime
 
 type Collection {
   _id: ID!
-  title: String!
   description: String!
   state: String!
   prime: Float!
@@ -41,10 +40,19 @@ type Query {
 type Mutation {
   createParticipant(input: CreateParticipantDto!): Participant!
   deleteParticipant(participantId: String!): Boolean!
-  createCollection(title: String!): Collection!
+  createCollection(input: CollectionType!): Collection!
   deleteCollection(id: String!): Boolean!
 }
 
 input CreateParticipantDto {
   collectionId: String!
+}
+
+input CollectionType {
+  description: String!
+  state: String!
+  prime: Float!
+  publicKey: String!
+  threshold: Float!
+  projectId: String!
 }

@@ -11,10 +11,6 @@ export class Collection {
 
   @Prop()
   @Field()
-  title: string;
-
-  @Prop()
-  @Field()
   description: string;
 
   @Prop()

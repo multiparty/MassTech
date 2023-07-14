@@ -1,7 +1,8 @@
 import { Resolver, Query, Mutation, ResolveReference, Args } from '@nestjs/graphql';
-import {Collection} from './collection.model';
+import { Collection } from './collection.model';
 import { CollectionService } from './collection.service';
 import { BadRequestException } from '@nestjs/common';
+import { CollectionType } from './collection.type'
 
 @Resolver(()=> Collection)
 export class CollectionResolver {
@@ -22,8 +23,8 @@ export class CollectionResolver {
     }
 
     @Mutation(() => Collection)
-    async createCollection(@Args('title') title: string): Promise<Collection> {
-      return this.collectionService.create(title);
+    async createCollection(@Args('input') input: CollectionType): Promise<Collection> {
+      return this.collectionService.create(input);
     }
 
     @Mutation(() => Boolean)
