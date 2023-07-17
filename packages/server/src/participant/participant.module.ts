@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Participant, ParticipantSchema } from './Participant.model';
-import { ParticipantService } from './Participant.service';
-import { ParticipantResolver } from './Participant.resolver';
+import { Participant, ParticipantSchema } from './participant.model';
+import { ParticipantService } from './participant.service';
+import { ParticipantResolver } from './participant.resolver';
 import { ParticipantController } from './particpant.controller';
 
 @Module({
