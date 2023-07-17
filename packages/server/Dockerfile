@@ -1,5 +1,5 @@
 # **************1. install with all dependencies **************
-FROM node:16-alpine3.17 as builder
+FROM node:20-alpine3.17 as builder
 WORKDIR /app 
 COPY . .
 RUN npm install
