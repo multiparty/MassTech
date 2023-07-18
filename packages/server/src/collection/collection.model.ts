@@ -11,6 +11,10 @@ export class Collection {
 
   @Prop()
   @Field()
+  title: string;
+  
+  @Prop()
+  @Field()
   description: string;
 
   @Prop()
@@ -41,11 +45,11 @@ export class Collection {
   @Field()
   createdBy: string;
 
-  @Prop( {type: mongoose.Schema.Types.Date, default: Date.now} )
+  @Prop( {type: mongoose.Schema.Types.Date} )
   @Field(() => Date)
   lastClosedAt: Date;
 
-  @Prop( {type: mongoose.Schema.Types.Date, default: Date.now} )
+  @Prop( {type: mongoose.Schema.Types.Date} )
   @Field(() => Date)
   lastOpenedAt: Date;
 
