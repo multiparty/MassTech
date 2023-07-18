@@ -5,8 +5,8 @@ import {
   Mutation,
   Args,
 } from '@nestjs/graphql';
-import { Participant } from './Participant.model';
-import { ParticipantService } from './Participant.service';
+import { Participant } from './participant.model';
+import { ParticipantService } from './participant.service';
 import { BadRequestException } from '@nestjs/common';
 import { ParticipantsArgs } from '../dto/participants.input';
 import { CreateParticipantDto } from '../dto/participant.dto';
