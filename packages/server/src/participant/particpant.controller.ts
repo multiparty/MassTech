@@ -1,6 +1,6 @@
 import { Query, ResolveReference } from '@nestjs/graphql';
-import { Participant } from './Participant.model';
-import { ParticipantService } from './Participant.service';
+import { Participant } from './participant.model';
+import { ParticipantService } from './participant.service';
 import { BadRequestException, Controller, Get, Post } from '@nestjs/common';
 import { CreateParticipantDto } from '../dto/participant.dto';
 

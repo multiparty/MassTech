@@ -9,7 +9,9 @@ import { CollectionModule } from './collection/collection.module';
 
 import { join } from 'path';
 
-const DATABASE_ULR = 'mongodb://localhost:27017/testDB';
+const MONGO_DB_HOST = 'mongodb-server:27017'; //matches mongo server name and port in docker-compose file
+const MONGO_DB_NAME = 'maindb';
+const DATABASE_ULR = 'mongodb://' + MONGO_DB_HOST + '/' + MONGO_DB_NAME;
 
 @Module({
   imports: [
