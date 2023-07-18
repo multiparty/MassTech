@@ -37,15 +37,10 @@ export class CollectionResolver {
       __typename: string;
       _id: string;
     }): Promise<Collection> {
-      try {
-        const result = await this.collectionService.find(reference._id);
-        if (result) {
-          return result;
-        }
-      } catch (e: any) {}
-  
-      throw new BadRequestException(
-        `Collection not found with id: ${reference._id}`,
-      );
+      const result = await this.collectionService.find(reference._id);
+      if(!result){
+        throw new BadRequestException(`Collection not found with id: ${reference._id}`);
+      }
+      return result;
     }
 }
