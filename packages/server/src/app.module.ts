@@ -5,6 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ParticipantModule } from './participant/participant.module';
+import { CollectionModule } from './collection/collection.module';
+
 import { join } from 'path';
 
 const MONGO_DB_HOST = 'mongodb-server:27017'; //matches mongo server name and port in docker-compose file
@@ -19,6 +21,7 @@ const DATABASE_ULR = 'mongodb://' + MONGO_DB_HOST + '/' + MONGO_DB_NAME;
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     ParticipantModule,
+    CollectionModule
   ],
   controllers: [AppController],
   providers: [AppService],
