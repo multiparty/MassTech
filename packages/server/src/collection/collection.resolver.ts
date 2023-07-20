@@ -3,15 +3,14 @@ import { Collection } from './collection.model';
 import { CollectionService } from './collection.service';
 import { BadRequestException } from '@nestjs/common';
 import { CollectionType } from './collection.type'
-import { PageInfoInput, PaginatedCollections} from './collection.pageinfo'
 
 @Resolver(()=> Collection)
 export class CollectionResolver {
     constructor(private readonly collectionService: CollectionService) {}
 
     @Query(() => [Collection])
-    async getAllCollections(input: PageInfoInput): Promise<PaginatedCollections> {
-      return this.collectionService.findAll(input);
+    async getAllCollections(): Promise<Collection[]> {
+      return this.collectionService.findAll();
     }
 
     @Query(() => Collection)

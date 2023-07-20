@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { Collection, CollectionDocument } from './collection.model'
 import { CollectionType } from './collection.type'
-import { PageInfo, PageInfoInput, PaginatedCollections} from './collection.pageinfo'
 
 @Injectable()
 export class CollectionService {
@@ -14,26 +13,8 @@ export class CollectionService {
         return createdCollection.save();
     }
 
-    async findAll(input: PageInfoInput): Promise<PaginatedCollections> {
-        const collections = await this.collectionModel.find({ deletedAt: null }).exec()
-        
-        const { page, pageSize } = input;
-        const startIndex = (page - 1) * pageSize
-        const endIndex = page * pageSize;
-        
-        const pageInfo: PageInfo = {
-            pageSize: pageSize,
-            page: page,
-            total: collections.length,
-            hasNext: endIndex < collections.length,
-            hasPrev: startIndex > 0,
-        };
-
-        const paginatedCollection:PaginatedCollections = {
-            data:collections,
-            pageInfo: pageInfo
-        }
-        return paginatedCollection;
+    async findAll(): Promise<Collection[]>{
+        return this.collectionModel.find({ deletedAt: null }).exec()
     }
 
     async find(id: string): Promise<Collection|null>{
