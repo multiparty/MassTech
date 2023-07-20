@@ -8,7 +8,7 @@ import { PageInfo, PageInfoInput, PaginatedCollections} from './collection.pagei
 @Injectable()
 export class CollectionService {
     constructor(@InjectModel(Collection.name) private collectionModel: Model<CollectionDocument>) {}
-    
+
     async create(input:CollectionType):Promise<Collection>{
         const createdCollection = new this.collectionModel(input);
         return createdCollection.save();

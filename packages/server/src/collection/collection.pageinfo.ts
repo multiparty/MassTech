@@ -28,8 +28,11 @@ export class PageInfoInput {
   @Field()
   public pageSize: number = 10; //size of page
 }
-
+@ObjectType()
 export class PaginatedCollections {
- data: Collection[]
- pageInfo: PageInfo
+  @Field()
+  public data: Collection[]
+
+  @Field()
+  public pageInfo: PageInfo
 }
