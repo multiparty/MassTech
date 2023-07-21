@@ -2,7 +2,7 @@ services:
   mass-tech-server:
     build: .
     ports:
-      - "4000:4000"
+      - "3000:3000"
     depends_on:
       - mongodb-server
   mongodb-server:
