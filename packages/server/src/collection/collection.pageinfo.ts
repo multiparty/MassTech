@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql'
+import { Field, ObjectType, InputType } from '@nestjs/graphql'
 import { Collection } from './collection.model';
 
 @ObjectType()
@@ -20,7 +20,7 @@ export class PageInfo {
   public hasPrev: boolean // true if has previous page
 }
 
-@ObjectType()
+@InputType()
 export class PageInfoInput {
   @Field()
   public page: number = 0;

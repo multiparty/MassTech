@@ -9,8 +9,8 @@ import { PageInfoInput, PaginatedCollections} from './collection.pageinfo'
 export class CollectionResolver {
     constructor(private readonly collectionService: CollectionService) {}
 
-    @Query(() => [Collection])
-    async getAllCollections(input: PageInfoInput): Promise<PaginatedCollections> {
+    @Query(() => PaginatedCollections)
+    async getAllCollections(@Args('input') input: PageInfoInput): Promise<PaginatedCollections> {
       return this.collectionService.findAll(input);
     }
 
