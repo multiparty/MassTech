@@ -15,9 +15,15 @@ export class CollectionService {
     }
 
     async findAll(input: PageInfoInput): Promise<PaginatedCollections> {
-        const collections = await this.collectionModel.find({ deletedAt: null }).exec()
-
         const { page, pageSize } = input;
+        const skipCount = (page - 1) * pageSize;
+        const collections = await this.collectionModel
+            .find({ deletedAt: null })
+            .skip(skipCount)
+            .limit(pageSize)
+            .exec();
+
+
         const startIndex = (page - 1) * pageSize
         const endIndex = page * pageSize;
 
