@@ -1,0 +1,14 @@
+{
+  "name": "@multiparty/mpc",
+  "version": "0.0.1",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
+  "files": ["index.js", "index.mjs", "index.d.ts"],
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  }
+}
