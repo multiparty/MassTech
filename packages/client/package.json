@@ -1,10 +1,9 @@
 {
   "name": "@multiparty/mpc",
   "version": "0.0.1",
-  "main": "index.js",
-  "module": "index.mjs",
-  "types": "index.d.ts",
-  "files": ["index.js", "index.mjs", "index.d.ts"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "build": "tsc"
   },
