@@ -1,7 +1,8 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
+import { GraphQLJSONObject } from 'graphql-type-json';
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
-import { Share } from './entities/share.entity'
+import { Share } from './entities/share'
 
 @Schema()
 @ObjectType()
@@ -27,12 +28,16 @@ export class Shares {
   createdAt: Date;
 
   @Prop()
-  @Field()
-  shares: Share[];
+  @Field({ nullable: true })
+  deletedAt: Date
 
   @Prop()
-  @Field()
-  metadata: JSON
+  @Field(() => [Share])
+  shares: Share[];
+
+  @Prop({ type: mongoose.Schema.Types.Mixed })
+  @Field(type => GraphQLJSONObject)
+  metadata: any;  
 }
 
 export type SharesDocument = Shares & Document;
