@@ -13,16 +13,16 @@ export class ShareService {
           return createdShare.save();
       }
   
-      async getCollectionShares(collectionId:string): Promise<Shares> {
+      async getCollectionShares(collectionid:string): Promise<Shares[]> {
           const shares = await this.shareModel
-          .findById(new mongoose.Types.ObjectId(collectionId), { deletedAt: null })
+          .find({ collectionid: collectionid, deletedAt: null })
           .exec();
           return shares;
       }
 
-      async getParticipantShares(participantid:string): Promise<Shares> {
+      async getParticipantShares(participantid:string): Promise<Shares[]> {
         const shares = await this.shareModel
-        .findById(new mongoose.Types.ObjectId(participantid))
+        .find({ participantid: participantid, deletedAt: null })
         .exec();
         return shares;
       }

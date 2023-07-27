@@ -14,13 +14,13 @@ export class ShareResolver {
   }
 
   @Query(()=> [Shares])
-  async getCollectionShares(@Args('collectionid') collectionid:string) : Promise<Shares> {
+  async getCollectionShares(@Args('collectionid') collectionid:string) : Promise<Shares[]> {
     return this.shareService.getCollectionShares(collectionid);
   }
 
   @Query(() => [Shares])
-  async getParticipantShares(@Args('participantId') participantId: string) : Promise<Shares> {
-        return this.shareService.getParticipantShares(participantId);
+  async getParticipantShares(@Args('participantId') participantid: string) : Promise<Shares[]> {
+        return this.shareService.getParticipantShares(participantid);
   }
   
   @Mutation(()=> Shares)
