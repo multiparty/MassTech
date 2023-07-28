@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
+import { Participant } from '../participant/participant.model'
 
 @Schema()
 @ObjectType()
@@ -52,10 +53,14 @@ export class Collection {
   @Prop( {type: mongoose.Schema.Types.Date} )
   @Field(() => Date)
   lastOpenedAt: Date;
-
+  
   @Prop()
   @Field({ nullable: true })
   deletedAt: Date
+
+  @Prop()
+  @Field(() => [Participant])
+  participants: Participant[]
 }
 
 export type CollectionDocument = Collection & Document;

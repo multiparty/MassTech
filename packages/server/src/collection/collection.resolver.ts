@@ -1,13 +1,19 @@
-import { Resolver, Query, Mutation, ResolveReference, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, ResolveReference, ResolveField, Parent, Args } from '@nestjs/graphql';
 import { Collection } from './collection.model';
 import { CollectionService } from './collection.service';
 import { BadRequestException } from '@nestjs/common';
 import { CollectionType } from './collection.type'
 import { PageInfoInput, PaginatedCollections} from './collection.pageinfo'
+import { Participant } from '../participant/participant.model'
+import { ParticipantService } from '../participant/participant.service'
 
 @Resolver(()=> Collection)
 export class CollectionResolver {
-    constructor(private readonly collectionService: CollectionService) {}
+    constructor(
+      private readonly collectionService: CollectionService,
+      private readonly participantService: ParticipantService
+        
+    ) {}
 
     @Query(() => PaginatedCollections)
     async getAllCollections(@Args('input') input: PageInfoInput): Promise<PaginatedCollections> {
@@ -31,6 +37,11 @@ export class CollectionResolver {
     @Mutation(() => Boolean)
     async deleteCollection(@Args('id') id: string): Promise<Boolean> {
       return this.collectionService.delete(id);
+    }
+
+    @ResolveField(() => [Participant])
+    async participants(@Parent() collection: Collection): Promise<Participant[]> {
+      return this.participantService.findByCollectionId(collection._id.toString());
     }
 
     @ResolveReference()

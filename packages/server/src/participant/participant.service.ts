@@ -46,6 +46,12 @@ export class ParticipantService {
       .exec();
   }
 
+  findByCollectionId(id: string): Promise<Participant[]> {
+    return this.participantModel
+      .find({ collectionId: id, deletedAt: null })
+      .exec();
+  }
+
   async delete(id: string) {
     const participantToDelete = await this.participantModel
       .findOneAndUpdate(new mongoose.Types.ObjectId(id), {
