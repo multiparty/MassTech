@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, ResolveReference, ResolveField, Parent, Args } from '@nestjs/graphql';
 import { Collection } from './collection.model';
 import { CollectionService } from './collection.service';
-import { BadRequestException } from '@nestjs/common';
+import { BadRequestException, Inject, forwardRef } from '@nestjs/common';
 import { CollectionType } from './collection.type'
 import { PageInfoInput, PaginatedCollections} from './collection.pageinfo'
 import { Participant } from '../participant/participant.model'
@@ -10,6 +10,7 @@ import { ParticipantService } from '../participant/participant.service'
 @Resolver(()=> Collection)
 export class CollectionResolver {
     constructor(
+      @Inject(forwardRef(() => ParticipantService))
       private readonly collectionService: CollectionService,
       private readonly participantService: ParticipantService
         
