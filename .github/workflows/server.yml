@@ -1,0 +1,39 @@
+name: server
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'packages/server/**'
+    branches:
+      - main
+    tags:
+      - 'v:*.*.*'
+  pull-request:
+    paths:
+      - 'packages/server/**'
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/server
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - uses: docker/setup-qemu-action@v2
+      - uses: docker/setup-buildx-action@v2
+      
+      - name: Install dependencies
+        run: npm ci
+      - name: Check Formatting
+        run: npm run prettier
+      - name: Check Linting
+        run: npm run lint
+      - name: Build
+        run: npm run build
+      
