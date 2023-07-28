@@ -8,7 +8,7 @@ on:
       - main
     tags:
       - 'v:*.*.*'
-  pull-request:
+  pull_request:
     paths:
       - 'packages/server/**'
     branches:
