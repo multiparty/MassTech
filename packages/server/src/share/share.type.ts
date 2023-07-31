@@ -7,10 +7,8 @@ export class ShareType {
   @Field()
   participantid: string;
   
-
   @Field()
   collectionid: string;
-
 
   @Field()
   name: string;
