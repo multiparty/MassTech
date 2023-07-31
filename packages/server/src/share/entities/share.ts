@@ -1,9 +1,13 @@
-import { Field, InputType, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, ObjectType, registerEnumType } from '@nestjs/graphql';
 
 export enum ShareTypeEnum {
   ENCRYPTED = 'encrypted',
   NUMBER = 'number',
 }
+
+registerEnumType(ShareTypeEnum, {
+  name: "ShareTypeEnum",
+});
 
 @InputType('ShareInput')
 @ObjectType('Share')
@@ -14,6 +18,6 @@ export class Share {
   @Field()
   y: string;
 
-  @Field(() => ShareTypeEnum)
+  @Field(type => ShareTypeEnum)
   type: ShareTypeEnum;
 }
