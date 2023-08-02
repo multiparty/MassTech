@@ -9,7 +9,7 @@ import {
 } from '@nestjs/graphql';
 import { Participant } from './participant.model';
 import { ParticipantService } from './participant.service';
-import { BadRequestException, Inject, forwardRef } from '@nestjs/common';
+import { BadRequestException } from '@nestjs/common';
 import { ParticipantsArgs } from '../dto/participants.input';
 import { CreateParticipantDto } from '../dto/participant.dto';
 import { Collection } from '../collection/collection.model'
@@ -18,7 +18,6 @@ import { CollectionService } from '../collection/collection.service'
 @Resolver(() => Participant)
 export class ParticipantResolver {
   constructor(
-      @Inject(forwardRef(() => CollectionService))
       private readonly collectionService: CollectionService,
       private readonly participantService: ParticipantService
     ) {}
