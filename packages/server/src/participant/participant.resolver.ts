@@ -12,8 +12,8 @@ import { ParticipantService } from './participant.service';
 import { BadRequestException } from '@nestjs/common';
 import { ParticipantsArgs } from '../dto/participants.input';
 import { CreateParticipantDto } from '../dto/participant.dto';
-import { ShareService } from '../share/share.service'
 import { Shares } from '../share/share.model'
+import { ShareService } from '../share/share.service'
 
 @Resolver(() => Participant)
 export class ParticipantResolver {

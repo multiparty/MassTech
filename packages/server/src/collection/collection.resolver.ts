@@ -6,12 +6,15 @@ import { CollectionType } from './collection.type'
 import { PageInfoInput, PaginatedCollections} from './collection.pageinfo'
 import { Participant } from '../participant/participant.model'
 import { ParticipantService } from '../participant/participant.service'
+import { Shares } from '../share/share.model'
+import { ShareService } from '../share/share.service'
 
 @Resolver(()=> Collection)
 export class CollectionResolver {
     constructor(
       private readonly participantService: ParticipantService,
-      private readonly collectionService: CollectionService
+      private readonly collectionService: CollectionService,
+      private readonly shareService:ShareService
     ) {}
 
     @Query(() => PaginatedCollections)
@@ -41,6 +44,11 @@ export class CollectionResolver {
     @ResolveField(() => [Participant])
     async participants(@Parent() collection: Collection): Promise<Participant[]> {
       return this.participantService.findByCollectionId(collection._id.toString());
+    }
+
+    @ResolveField(() => [Shares])
+    async shares(@Parent() collection: Collection): Promise<Shares[]> {
+      return this.shareService.getCollectionShares(collection._id.toString());
     }
 
     @ResolveReference()

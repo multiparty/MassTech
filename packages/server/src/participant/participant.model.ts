@@ -27,7 +27,7 @@ export class Participant {
 
   @Prop()
   @Field(() => [Shares])
-  participants: Shares[]
+  Shares: Shares[]
 }
 
 export type ParticipantDocument = Participant & Document;
