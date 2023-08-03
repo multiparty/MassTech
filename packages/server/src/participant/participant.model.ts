@@ -1,6 +1,7 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document } from 'mongoose';
 import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
+import { Shares } from '../share/share.model'
 
 @Schema()
 @ObjectType()
@@ -23,6 +24,10 @@ export class Participant {
   @Prop()
   @Field({ nullable: true })
   deletedAt: Date
+
+  @Prop()
+  @Field(() => [Shares])
+  participants: Shares[]
 }
 
 export type ParticipantDocument = Participant & Document;
