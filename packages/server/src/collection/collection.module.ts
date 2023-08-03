@@ -1,4 +1,4 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Collection, CollectionSchema } from './collection.model'
 import { CollectionService } from './collection.service'
@@ -7,7 +7,7 @@ import { ParticipantModule } from '../participant/participant.module'
 
 @Module({
     imports: [
-      forwardRef(() => ParticipantModule),
+      ParticipantModule,
       MongooseModule.forFeature([{ name: Collection.name, schema: CollectionSchema}])],
     providers: [CollectionService, CollectionResolver],
     exports: [CollectionService]

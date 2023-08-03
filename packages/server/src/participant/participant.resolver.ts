@@ -3,8 +3,6 @@ import {
   Query,
   ResolveReference,
   Mutation,
-  ResolveField, 
-  Parent, 
   Args,
 } from '@nestjs/graphql';
 import { Participant } from './participant.model';
@@ -12,13 +10,10 @@ import { ParticipantService } from './participant.service';
 import { BadRequestException } from '@nestjs/common';
 import { ParticipantsArgs } from '../dto/participants.input';
 import { CreateParticipantDto } from '../dto/participant.dto';
-import { Collection } from '../collection/collection.model'
-import { CollectionService } from '../collection/collection.service'
 
 @Resolver(() => Participant)
 export class ParticipantResolver {
   constructor(
-      private readonly collectionService: CollectionService,
       private readonly participantService: ParticipantService
     ) {}
 
@@ -55,11 +50,6 @@ export class ParticipantResolver {
     id: string,
   ): Promise<boolean> {
     return this.participantService.delete(id);
-  }
-
-  @ResolveField(() => Collection)
-  async collection(@Parent() participant: Participant): Promise<Collection> {
-    return this.collectionService.find(participant.collectionId);
   }
 
   @ResolveReference()
