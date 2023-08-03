@@ -8,6 +8,7 @@ import { ParticipantModule } from './participant/participant.module';
 import { CollectionModule } from './collection/collection.module';
 
 import { join } from 'path';
+import { ShareModule } from './share/share.module';
 
 const MONGO_DB_HOST = 'mongodb-server:27017'; //matches mongo server name and port in docker-compose file
 const MONGO_DB_NAME = 'maindb';
@@ -21,7 +22,8 @@ const DATABASE_ULR = 'mongodb://' + MONGO_DB_HOST + '/' + MONGO_DB_NAME;
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     ParticipantModule,
-    CollectionModule
+    CollectionModule,
+    ShareModule
   ],
   controllers: [AppController],
   providers: [AppService],
