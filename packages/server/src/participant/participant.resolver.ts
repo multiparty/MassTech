@@ -2,7 +2,9 @@ import {
   Resolver,
   Query,
   ResolveReference,
-  Mutation,
+  Mutation, 
+  ResolveField, 
+  Parent,
   Args,
 } from '@nestjs/graphql';
 import { Participant } from './participant.model';
@@ -10,10 +12,15 @@ import { ParticipantService } from './participant.service';
 import { BadRequestException } from '@nestjs/common';
 import { ParticipantsArgs } from '../dto/participants.input';
 import { CreateParticipantDto } from '../dto/participant.dto';
+import { Shares } from '../share/share.model'
+import { ShareService } from '../share/share.service'
 
 @Resolver(() => Participant)
 export class ParticipantResolver {
-  constructor(private readonly participantService: ParticipantService) {}
+  constructor(
+      private readonly participantService: ParticipantService,
+      private readonly shareService:ShareService
+    ) {}
 
   @Query(() => [Participant])
   async participants(@Args() args: ParticipantsArgs): Promise<Participant[]> {
@@ -48,6 +55,11 @@ export class ParticipantResolver {
     id: string,
   ): Promise<boolean> {
     return this.participantService.delete(id);
+  }
+
+  @ResolveField(() => [Shares])
+  async shares(@Parent() participant: Participant): Promise<Shares[]> {
+    return this.shareService.getParticipantShares(participant._id.toString());
   }
 
   @ResolveReference()
