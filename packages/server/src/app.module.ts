@@ -10,6 +10,10 @@ import { CollectionModule } from './collection/collection.module';
 import { join } from 'path';
 import { ShareModule } from './share/share.module';
 
+import { MpcService } from './mpc/mpc.service';
+import { MpcController } from './mpc/mpc.controller';
+import { MpcModule } from './mpc/mpc.module';
+
 const MONGO_DB_HOST = 'mongodb-server:27017'; //matches mongo server name and port in docker-compose file
 const MONGO_DB_NAME = 'maindb';
 const DATABASE_ULR = 'mongodb://' + MONGO_DB_HOST + '/' + MONGO_DB_NAME;
@@ -23,9 +27,10 @@ const DATABASE_ULR = 'mongodb://' + MONGO_DB_HOST + '/' + MONGO_DB_NAME;
     }),
     ParticipantModule,
     CollectionModule,
-    ShareModule
+    ShareModule,
+    MpcModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, MpcController],
+  providers: [AppService, MpcService],
 })
 export class AppModule {}
